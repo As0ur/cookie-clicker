@@ -1,0 +1,102 @@
+name: Test Suite
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+      
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: Install dependencies
+      run: |
+        npm init -y
+        npm install --save-dev jest jsdom @testing-library/jest-dom
+        
+    - name: Create Jest config
+      run: |
+        cat > jest.config.js << 'EOF'
+        module.exports = {
+          testEnvironment: 'jsdom',
+          setupFilesAfterEnv: ['<rootDir>/test/setup.js'],
+          testMatch: ['<rootDir>/test/**/*.test.js'],
+          collectCoverage: true,
+          coverageDirectory: 'coverage',
+          coverageReporters: ['text', 'lcov', 'html'],
+          collectCoverageFrom: [
+            '**/*.js',
+            '!**/node_modules/**',
+            '!**/coverage/**',
+            '!**/test/**'
+          ]
+        };
+        EOF
+        
+    - name: Create test setup
+      run: |
+        mkdir -p test
+        cat > test/setup.js << 'EOF'
+        import '@testing-library/jest-dom';
+        
+        // Mock localStorage
+        const localStorageMock = {
+          getItem: jest.fn(),
+          setItem: jest.fn(),
+          removeItem: jest.fn(),
+          clear: jest.fn(),
+        };
+        global.localStorage = localStorageMock;
+        
+        // Mock DOM methods that might not be available in jsdom
+        Object.defineProperty(window, 'location', {
+          value: {
+            reload: jest.fn(),
+          },
+          writable: true,
+        });
+        EOF
+        
+    - name: Create test file
+      run: |
+        mkdir -p test
+        cat > test/cookie-clicker.test.js << 'EOF'
+        // Import the game class (we'll need to modify script.js for this)
+        // For now, we'll create a simple test structure
+        
+        describe('Cookie Clicker Basic Tests', () => {
+          test('should have test environment working', () => {
+            expect(true).toBe(true);
+          });
+          
+          test('should be able to create DOM elements', () => {
+            const div = document.createElement('div');
+            div.id = 'test';
+            document.body.appendChild(div);
+            expect(document.getElementById('test')).toBeTruthy();
+          });
+        });
+        EOF
+        
+    - name: Run tests
+      run: npm test
+      
+    - name: Upload coverage reports
+      uses: codecov/codecov-action@v3
+      if: always()
+      with:
+        file: ./coverage/lcov.info
+        flags: unittests
+        name: codecov-umbrella

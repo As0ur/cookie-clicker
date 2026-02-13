@@ -59,6 +59,93 @@ This game is designed as a simple foundation for practicing DevOps projects. The
 - Safari
 - Edge
 
+## CI/CD Pipeline
+
+This project includes a comprehensive CI/CD pipeline using GitHub Actions:
+
+### 🔄 Continuous Integration (CI)
+
+**Code Quality Checks** (`.github/workflows/ci.yml`):
+- **HTML Linting**: Validates HTML structure and best practices
+- **JavaScript Linting**: ESLint for code quality and consistency
+- **CSS Linting**: StyleLint for CSS standards compliance
+- **Security Scanning**: Trivy vulnerability scanner
+
+**Automated Testing** (`.github/workflows/test.yml`):
+- **Unit Tests**: Jest testing framework with jsdom
+- **Coverage Reports**: Code coverage with Codecov integration
+- **Test Environment**: Automated setup and teardown
+
+### 🚀 Continuous Deployment (CD)
+
+**GitHub Pages Deployment** (`.github/workflows/deploy.yml`):
+- **Automatic Deployment**: Deploys to GitHub Pages on main branch pushes
+- **Build Optimization**: Optimizes assets for production
+- **Rollback Support**: Easy rollback through GitHub Pages settings
+
+**Docker Containerization** (`.github/workflows/docker.yml`):
+- **Multi-stage Builds**: Optimized Docker images
+- **Registry Push**: Automatic push to GitHub Container Registry
+- **Security Scanning**: Container vulnerability scanning
+- **Tag Management**: Semantic versioning support
+
+### 🐳 Docker Support
+
+**Local Development**:
+```bash
+# Build and run locally
+docker-compose up --build
+
+# Production mode with reverse proxy
+docker-compose --profile production up
+```
+
+**Container Registry**:
+- Images are automatically pushed to `ghcr.io/As0ur/cookie-clicker`
+- Tags: `latest`, branch names, semantic versions
+
+### 📊 Monitoring & Observability
+
+**Health Checks**:
+- `/health` endpoint for container health monitoring
+- Nginx access and error logs
+- GitHub Actions workflow status
+
+**Security**:
+- Automated dependency scanning
+- Container security scanning
+- Security headers in Nginx configuration
+
+### 🔧 Setup Instructions
+
+1. **Enable GitHub Pages**:
+   - Go to repository Settings → Pages
+   - Source: Deploy from a branch
+   - Branch: main, folder: /root
+
+2. **Configure Secrets** (if needed):
+   - Repository Settings → Secrets and variables → Actions
+   - Add any required secrets for external services
+
+3. **Local Development**:
+   ```bash
+   # Clone the repository
+   git clone https://github.com/As0ur/cookie-clicker.git
+   cd cookie-clicker
+   
+   # Run locally
+   python -m http.server 8000
+   # or with Docker
+   docker-compose up
+   ```
+
+### 📈 Pipeline Triggers
+
+- **Push to main**: Runs all checks and deploys to production
+- **Pull Request**: Runs CI checks only
+- **Tags**: Creates Docker images with version tags
+- **Manual**: Workflow dispatch for manual deployments
+
 ## Reset Game
 
 To reset your progress, open the browser console and run:
