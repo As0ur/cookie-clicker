@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cookie Clicker Game</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <header>
+            <h1>Cookie Clicker</h1>
+            <div class="score-display">
+                <span id="score">0</span> cookies
+            </div>
+            <div class="per-second">
+                <span id="per-second">0</span> cookies per second
+            </div>
+        </header>
+        
+        <main>
+            <section class="cookie-section">
+                <button id="cookie-button" class="cookie-button">
+                    <span class="cookie-emoji">🍪</span>
+                </button>
+                <div class="click-power">
+                    Click Power: <span id="click-power">1</span>
+                </div>
+            </section>
+            
+            <section class="upgrades-section">
+                <h2>Upgrades</h2>
+                <div class="upgrade-list">
+                    <div class="upgrade-item" data-upgrade="click-power">
+                        <h3>Stronger Click</h3>
+                        <p>Increase click power by 1</p>
+                        <div class="cost">Cost: <span id="click-power-cost">10</span> cookies</div>
+                        <button class="buy-button" id="buy-click-power">Buy</button>
+                    </div>
+                    
+                    <div class="upgrade-item" data-upgrade="auto-clicker">
+                        <h3>Auto Clicker</h3>
+                        <p>Automatically clicks 1 time per second</p>
+                        <div class="cost">Cost: <span id="auto-clicker-cost">50</span> cookies</div>
+                        <button class="buy-button" id="buy-auto-clicker">Buy</button>
+                        <div class="owned">Owned: <span id="auto-clicker-count">0</span></div>
+                    </div>
+                    
+                    <div class="upgrade-item" data-upgrade="grandma">
+                        <h3>Grandma</h3>
+                        <p>Bakes 5 cookies per second</p>
+                        <div class="cost">Cost: <span id="grandma-cost">100</span> cookies</div>
+                        <button class="buy-button" id="buy-grandma">Buy</button>
+                        <div class="owned">Owned: <span id="grandma-count">0</span></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>

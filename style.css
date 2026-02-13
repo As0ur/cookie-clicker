@@ -1,0 +1,217 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+}
+
+.game-container {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    max-width: 900px;
+    width: 90%;
+    backdrop-filter: blur(10px);
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+h1 {
+    font-size: 2.5em;
+    color: #764ba2;
+    margin-bottom: 15px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.score-display {
+    font-size: 2em;
+    font-weight: bold;
+    color: #667eea;
+    margin-bottom: 10px;
+}
+
+.per-second {
+    font-size: 1.2em;
+    color: #666;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+.cookie-section {
+    text-align: center;
+}
+
+.cookie-button {
+    background: linear-gradient(145deg, #f0f0f0, #e0e0e0);
+    border: none;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cookie-button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+}
+
+.cookie-button:active {
+    transform: scale(0.95);
+}
+
+.cookie-emoji {
+    font-size: 4em;
+    display: block;
+    user-select: none;
+}
+
+.click-power {
+    font-size: 1.1em;
+    color: #666;
+    background: rgba(102, 126, 234, 0.1);
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
+}
+
+.upgrades-section h2 {
+    color: #764ba2;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+.upgrade-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.upgrade-item {
+    background: rgba(255, 255, 255, 0.8);
+    border: 2px solid #e0e0e0;
+    border-radius: 15px;
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.upgrade-item:hover {
+    border-color: #667eea;
+    transform: translateY(-2px);
+    box-shadow: 0 5px 20px rgba(102, 126, 234, 0.2);
+}
+
+.upgrade-item h3 {
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.upgrade-item p {
+    color: #666;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+}
+
+.cost {
+    font-weight: bold;
+    color: #764ba2;
+    margin-bottom: 10px;
+}
+
+.buy-button {
+    background: linear-gradient(145deg, #667eea, #764ba2);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    margin-right: 10px;
+}
+
+.buy-button:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+.buy-button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.owned {
+    display: inline-block;
+    color: #666;
+    font-size: 0.9em;
+}
+
+.click-animation {
+    position: absolute;
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1.5em;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+    z-index: 1000;
+}
+
+@keyframes floatUp {
+    0% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    
+    .cookie-button {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .cookie-emoji {
+        font-size: 3em;
+    }
+    
+    h1 {
+        font-size: 2em;
+    }
+    
+    .score-display {
+        font-size: 1.5em;
+    }
+}
